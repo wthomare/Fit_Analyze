@@ -5,9 +5,26 @@ import DB_Handler
 import unittest
 import os
 
+import xml.etree.ElementTree as ET
+
+from Logger import Logger
+
 class Test_process(unittest.TestCase):
     
     def setUp(self):
+        
+        logger = Logger('test_process')
+        logger.add_StreamHandler()
+        self.logger = logger.logger
+        
+        self.parameters =  {}
+        tree = ET.parse("parameters.xml")
+        root = tree.root()
+        for child in root:
+            for sub_child in child:
+                self.parameters[sub_child.tag] = sub_child.test.encode('utf8')
+        
+        
         self.fit_files = {}
         self.REPO_DIR = os.getcwd().split("test")
 
@@ -33,3 +50,7 @@ class Test_process(unittest.TestCase):
             for k,v in handler.data.iteritems():
                 v['user_id'] = 1
                 self.db_event.load_data(v)
+                
+                
+if __name__=="__main__":
+    unittest.main()
