@@ -1,0 +1,91 @@
+2020-06-27 15:45:26,605 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-27 15:45:26,608 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-27 15:45:26,620 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-27 15:45:26,622 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             distance FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-27 15:50:49,610 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-27 15:50:49,614 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-27 15:50:49,636 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-27 15:50:49,638 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-27 15:58:17,773 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-27 15:58:17,776 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-27 15:58:17,787 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-27 15:58:17,788 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]

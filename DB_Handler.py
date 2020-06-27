@@ -38,33 +38,35 @@ class DB_Handler(object):
         
         if 'user' in self.db:
             sql_query = """
-                        CREATE TABLE IF NOT EXISTS users(
+                        CREATE TABLE IF NOT EXISTS %s(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              name TEXT,
                              age INTEGER,
                              weight FLOAT,
                              size INTEGER
                         )
-                        """
+                        """%self.db
+                        
         elif 'event' in self.db:
             sql_query = """
-                        CREATE TABLE IF NOT EXISTS events(
+                        CREATE TABLE IF NOT EXISTS %s(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              user_id INTEGER,
-                             timestamp DATETIME,
+                             timestamp timestamp,
                              position_lat FLOAT,
                              position_long FLOAT,
-                             distance FLOAT,
                              enhanced_altitude FLOAT,
                              altitude FLOAT,
                              enhanced_speed FLOAT,
                              speed FLOAT,
                              heart_rate INTEGER,
                              cadence INTEGER,
-                             fractional_cadence INTEGER
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
                         )            
             
-                        """
+                        """%self.db
         else:
             raise ValueError('The database [%s] is unknown in this project' %self.db)
         
@@ -99,9 +101,10 @@ class DB_Handler(object):
             
         field = field[:-2]
         value = value[:-2]
-        
-        sql_query = """INSERT INTO %s(%s) VALUES(%s)"""%(os.path.join(self.parameters['REPO_DIR'], "db", self.db), field, value)
+        sql_query = """INSERT INTO %s (%s) VALUES(%s)"""%(self.db, field, value)
+        print("query [%s]" %(sql_query))
         self.cursor.execute(sql_query, data)
+        self.conn.commit()
         
     # ------------------------------------------------------------------------
     def load_data(self, sql_query):

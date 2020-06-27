@@ -3,6 +3,9 @@
 import fitparse
 import pytz
 import csv
+import os
+import datetime
+
 
 # ----------------------------------------------------------------------------
 class FitFile_handler(object):
@@ -21,11 +24,11 @@ class FitFile_handler(object):
         self.parameters = parameters
         self.logger = logger
         self.file = file
-        self.filename = self.file[:-4]
+        self.filename = self.file[:-4].split(os.sep)[-1]
         
-        self.allowed_fields = ['timestamp','position_lat','position_long', 'distance',
+        self.allowed_fields = ['timestamp','position_lat','position_long',
                           'enhanced_altitude', 'altitude','enhanced_speed',
-                          'speed', 'heart_rate','cadence','fractional_cadence']
+                          'speed', 'heart_rate','cadence','fractional_cadence', 'power']
         self.required_fields = ['timestamp', 'position_lat', 'position_long', 'altitude']
         
     # ------------------------------------------------------------------------
@@ -45,10 +48,8 @@ class FitFile_handler(object):
             mdata = {}
             for field in fields:
                 if field.name in self.allowed_fields:
-                    if field.name=='timestamp':
-                        mdata[field.name] = self.UTC.localize(field.value).astimezone(self.CST)
-                    else:
-                        mdata[field.name] = field.value
+                    mdata[field.name] = field.value
+            mdata['event_name'] = self.filename
             for rf in self.required_fields:
                 if rf not in mdata:
                     skip=True

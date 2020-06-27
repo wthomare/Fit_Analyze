@@ -18,6 +18,7 @@ class Test_process(unittest.TestCase):
         
         logger = Logger('test_process')
         logger.add_StreamHandler()
+        logger.add_FileHandler('Initial_test.log')
         self.logger = logger.logger
         
         self.parameters =  {}
@@ -28,11 +29,11 @@ class Test_process(unittest.TestCase):
                 self.parameters[sub_child.tag] = sub_child.test.encode('utf8')
         
         
-        self.fit_files = {}
         self.REPO_DIR = os.getcwd().split("test")[0]
         self.parameters["REPO_DIR"] = self.REPO_DIR
-    
-    def test_read_files(self):
+        self.fit_files = {}
+
+    def test_basic_process(self):
         files = os.listdir(os.path.join(self.REPO_DIR, 'source_data'))
         fit_files = [os.path.join(self.REPO_DIR, 'source_data', file) for file in files if file[-4:].lower()=='.fit']
         
@@ -40,20 +41,18 @@ class Test_process(unittest.TestCase):
             self.fit_files[file] = FitFile_Handler.FitFile_handler(self.parameters, self.logger, file)
             self.fit_files[file].load_file()
             
-    def test_parse(self):
+
         for file, handler in self.fit_files.items():
-            handler.parse()
-            
-    def test_db_handler(self):
+            handler.parse()            
+
         self.db_user = DB_Handler.DB_Handler('users', self.parameters, self.logger)
         self.db_event = DB_Handler.DB_Handler("event", self.parameters, self.logger)
-        
-    def test_load_data(self):
         for file, handler in self.fit_files.items():
-            for k,v in handler.data.items():
+            for v in handler.data:
                 v['user_id'] = 1
-                self.db_event.load_data(v)
+                self.db_event.insert_data(v)
                 
                 
 if __name__=="__main__":
     unittest.main()
+    
