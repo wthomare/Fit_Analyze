@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import sys, os
+
+sys.path.append(os.getcwd().split("test")[0])
+
 import FitFile_Handler
 import DB_Handler
 import unittest
-import os
 
 import xml.etree.ElementTree as ET
 
@@ -19,15 +22,15 @@ class Test_process(unittest.TestCase):
         
         self.parameters =  {}
         tree = ET.parse("parameters.xml")
-        root = tree.root()
+        root = tree.getroot()
         for child in root:
             for sub_child in child:
                 self.parameters[sub_child.tag] = sub_child.test.encode('utf8')
         
         
         self.fit_files = {}
-        self.REPO_DIR = os.getcwd().split("test")
-
+        self.REPO_DIR = os.getcwd().split("test")[0]
+        self.parameters["REPO_DIR"] = self.REPO_DIR
     
     def test_read_files(self):
         files = os.listdir(os.path.join(self.REPO_DIR, 'source_data'))
@@ -38,7 +41,7 @@ class Test_process(unittest.TestCase):
             self.fit_files[file].load_file()
             
     def test_parse(self):
-        for file, handler in self.fit_files.iteritems():
+        for file, handler in self.fit_files.items():
             handler.parse()
             
     def test_db_handler(self):
@@ -46,8 +49,8 @@ class Test_process(unittest.TestCase):
         self.db_event = DB_Handler.DB_Handler("event", self.parameters, self.logger)
         
     def test_load_data(self):
-        for file, handler in self.fit_files.iteritems():
-            for k,v in handler.data.iteritems():
+        for file, handler in self.fit_files.items():
+            for k,v in handler.data.items():
                 v['user_id'] = 1
                 self.db_event.load_data(v)
                 

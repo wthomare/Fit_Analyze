@@ -2,6 +2,7 @@
 
 from urllib.request import pathname2url
 import sqlite3
+import os
 
 # ----------------------------------------------------------------------------
 class DB_Handler(object):
@@ -24,7 +25,7 @@ class DB_Handler(object):
     # ------------------------------------------------------------------------
     def check_db(self):
         try:
-            dburi = 'file:{}?mode=rw'.format(pathname2url(self.db))
+            dburi = 'file:{}?mode=rw'.format(pathname2url(os.path.join(self.parameters['REPO_DIR'], "db", self.db)))
             self.conn = sqlite3.connect(dburi, uri=True)
             self.cursor = self.conn.cursor()
             self.logger.info("Found DB [%s]" %self.db)
@@ -47,7 +48,7 @@ class DB_Handler(object):
                         """
         elif 'event' in self.db:
             sql_query = """
-                        CREATE TABLE IF NOT EXISTS event(
+                        CREATE TABLE IF NOT EXISTS events(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              user_id INTEGER,
                              timestamp DATETIME,
@@ -67,7 +68,7 @@ class DB_Handler(object):
         else:
             raise ValueError('The database [%s] is unknown in this project' %self.db)
         
-        self.conn = sqlite3.connect(self.db)
+        self.conn = sqlite3.connect(os.path.join(self.parameters['REPO_DIR'], "db", self.db), uri=True)
         self.cursor = self.conn.cursor()
         self.logger.warning("Execute the query : [%s]" %sql_query)
         self.cursor.execute(sql_query)
@@ -78,7 +79,7 @@ class DB_Handler(object):
         self.logger.warning("Delete the database : [%s]" %self.db)
         sql_query = """
                     DROP TABLE %s
-                    """%self.db
+                    """%os.path.join(self.parameters['REPO_DIR'], "db", self.db)
         self.cursor.execute(sql_query)
         self.conn.commit()
         if not self.check_db():
@@ -99,7 +100,7 @@ class DB_Handler(object):
         field = field[:-2]
         value = value[:-2]
         
-        sql_query = """INSERT INTO %s(%s) VALUES(%s)"""%(self.db, field, value)
+        sql_query = """INSERT INTO %s(%s) VALUES(%s)"""%(os.path.join(self.parameters['REPO_DIR'], "db", self.db), field, value)
         self.cursor.execute(sql_query, data)
         
     # ------------------------------------------------------------------------
@@ -110,7 +111,7 @@ class DB_Handler(object):
         """
         self.cursor.execute(sql_query)
         rows = self.cursor.fetchall()
-        self.logger.debug("Extract from [%s] %s Xuple" %(self.db, len(rows)))
+        self.logger.debug("Extract from [%s] %s Xuple" %(os.path.join(self.parameters['REPO_DIR'], "db", self.db), len(rows)))
         return rows
         
     # ------------------------------------------------------------------------
