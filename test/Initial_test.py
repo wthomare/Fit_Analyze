@@ -60,21 +60,18 @@ class Test_process(unittest.TestCase):
                 self.db_event.insert_data(v)
              
         # Reload those data from db
-        sql_query = "SELECT position_lat, position_long, power FROM event WHERE user_id=1"
+        sql_query = "SELECT position_lat, position_long, power, altitude FROM event WHERE user_id=1"
         rows = self.db_event.load_data(sql_query)
 
-        longitude, latitude, power = np.array([]), np.array([]), np.array([])
+        longitude, latitude, power, altitude = np.array([]), np.array([]), np.array([]), np.array([])
         for row in rows:
             longitude = np.append(longitude, row[0])
             latitude = np.append(latitude, row[1])
             power = np.append(power, row[2])
-        
-        print(len(longitude))    
-        print(len(latitude))    
-        print(len(power))
-        print(power.max())
+            altitude = np.append(altitude, row[3])
         
         self.graphic.draw_2D_enriched('test_power.jpeg', latitude, longitude, power)
+        self.graphic.draw_3d('test_power.jpeg', latitude, longitude, altitude)
 
         self.db_user.off()
         self.db_event.off()

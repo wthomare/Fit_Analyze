@@ -71,7 +71,7 @@ class Graphic_store(object):
         segments = [[(x[i],y[i]), (x[i+1], y[i+1])] for i in range(len(x)-1)]
         colors = [plt.cm.viridis(int(y)) for y in norm]
     
-        norm_colorbar = plt.Normalize(norm.min(), norm.max())
+        norm_colorbar = plt.Normalize(data.min(), data.max())
         lc = LineCollection(segments, colors=colors, norm = norm_colorbar)
         fig, ax = plt.subplots()
         line = ax.add_collection(lc)
