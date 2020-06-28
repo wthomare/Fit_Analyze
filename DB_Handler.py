@@ -102,8 +102,7 @@ class DB_Handler(object):
         field = field[:-2]
         value = value[:-2]
         sql_query = """INSERT INTO %s (%s) VALUES(%s)"""%(self.db, field, value)
-        print("query [%s]" %(sql_query))
-        self.cursor.execute(sql_query, data)
+        self.conn.execute(sql_query, data)
         self.conn.commit()
         
     # ------------------------------------------------------------------------

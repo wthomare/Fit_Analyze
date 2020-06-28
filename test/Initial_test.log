@@ -89,3 +89,543 @@
                         )            
             
                         ]
+2020-06-28 09:58:52,293 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 09:58:52,298 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 09:58:52,321 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 09:58:52,323 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:00:50,835 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:00:50,843 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:00:50,872 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:00:50,875 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:03:59,083 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:03:59,087 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:03:59,106 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:03:59,108 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:05:52,127 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:05:52,131 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:05:52,154 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:05:52,156 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:08:57,641 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:08:57,644 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:08:57,668 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:08:57,671 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:10:04,293 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:10:04,293 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:10:04,295 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:10:04,295 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:10:04,313 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:10:04,313 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:10:04,316 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:10:04,316 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:10:43,514 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:10:43,514 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:10:43,514 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 10:10:43,518 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:10:43,518 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:10:43,518 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 10:10:43,537 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:10:43,537 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:10:43,537 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 10:10:43,541 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:10:43,541 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 10:10:43,541 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:45:40,880 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:45:40,880 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:45:40,880 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:45:40,880 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:45:40,880 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:45:40,887 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:45:40,887 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:45:40,887 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:45:40,887 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:45:40,887 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:45:40,917 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:45:40,917 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:45:40,917 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:45:40,917 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:45:40,917 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:45:40,923 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:45:40,923 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:45:40,923 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:45:40,923 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:45:40,923 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:47:15,981 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:47:15,985 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:47:16,003 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:47:16,005 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:54:41,385 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:54:41,392 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:54:41,426 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:54:41,429 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
+2020-06-28 12:55:51,659 - test_process - WARNING - The DB [users] not found. We will create it
+2020-06-28 12:55:51,665 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS users(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             name TEXT,
+                             age INTEGER,
+                             weight FLOAT,
+                             size INTEGER
+                        )
+                        ]
+2020-06-28 12:55:51,690 - test_process - WARNING - The DB [event] not found. We will create it
+2020-06-28 12:55:51,691 - test_process - WARNING - Execute the query : [
+                        CREATE TABLE IF NOT EXISTS event(
+                             id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                             user_id INTEGER,
+                             timestamp timestamp,
+                             position_lat FLOAT,
+                             position_long FLOAT,
+                             enhanced_altitude FLOAT,
+                             altitude FLOAT,
+                             enhanced_speed FLOAT,
+                             speed FLOAT,
+                             heart_rate INTEGER,
+                             cadence INTEGER,
+                             fractional_cadence INTEGER,
+                             event_name TEXT,
+                             power INTEGER
+                        )            
+            
+                        ]
