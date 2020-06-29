@@ -2,7 +2,6 @@
 from AppFrame import RibbonFrame
 from wx.adv import SplashScreen
 import wx, os
-import Utils
 
 
 class FitUIApp(wx.App):
@@ -28,7 +27,7 @@ class FitUIApp(wx.App):
             #Create the SplashScreen
             if self._showSplash:
                 wx.InitAllImageHandlers()
-                imgPath = "img" + os.sep + "logo.png" # TODO Find a logo
+                imgPath = "img" + os.sep + "logo.jpg" # TODO Find a logo
                 img = wx.Image(imgPath)
                 bmp = img.ConvertToBitmap()
                 self.splash=SplashScreen(bmp, wx.adv.SPLASH_CENTRE_ON_SCREEN | wx.adv.SPLASH_TIMEOUT, 60, None, -1)
@@ -46,10 +45,9 @@ class FitUIApp(wx.App):
             self._AfterSplash()
 
             return True
-        except: #Display all errors
-            msg = "Failed to init the software"
-            Utils.displayError(msg, "FitUIApp.OnInit Error")
-            return False
+        except Exception as err: #Display all errors
+            msg = "Failed to init the software : %s" %err
+            raise ValueError(msg)
 
     def _AfterSplash(self):
         """
@@ -67,7 +65,7 @@ class FitUIApp(wx.App):
             return True
         except:
             msg = "Failed to launch the qfterSplash screen"
-            Utils.displayError(msg, 'BasicSoftware.AfterSplash Error')
+            ValueError(msg, 'BasicSoftware.AfterSplash Error')
             
     
     def OnExit(self):
