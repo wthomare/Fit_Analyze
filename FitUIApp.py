@@ -27,7 +27,7 @@ class FitUIApp(wx.App):
             #Create the SplashScreen
             if self._showSplash:
                 wx.InitAllImageHandlers()
-                imgPath = "img" + os.sep + "logo.jpg" # TODO Find a logo
+                imgPath = "img" + os.sep + "FIT-logo.png" # TODO Find a logo
                 img = wx.Image(imgPath)
                 bmp = img.ConvertToBitmap()
                 self.splash=SplashScreen(bmp, wx.adv.SPLASH_CENTRE_ON_SCREEN | wx.adv.SPLASH_TIMEOUT, 60, None, -1)
@@ -37,7 +37,8 @@ class FitUIApp(wx.App):
                     wx.Yield()
 
             #Create the application
-            self._frame=RibbonFrame(parent = None, id=wx.ID_ANY, title='FitSoftware', size=(1280,900))
+            displaySize= wx.DisplaySize()
+            self._frame=RibbonFrame(parent = None, id=wx.ID_ANY, title='FitSoftware', size=(displaySize[0]/(4/3), displaySize[1]/(4/3)))
             self.SetTopWindow(self._frame)
 
             if self._showSplash:

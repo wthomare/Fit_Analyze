@@ -41,12 +41,16 @@ class DB_Handler(object):
                         CREATE TABLE IF NOT EXISTS %s(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              name TEXT,
+                             nickname TEXT,
                              age INTEGER,
                              weight FLOAT,
-                             size INTEGER
+                             size INTEGER,
+                             FCMin INTEGER,
+                             FCMax INTEGER,
+                             FTP INTEGER
                         )
-                        """%self.db
-                        
+                        """%self.db                    
+
         elif 'event' in self.db:
             sql_query = """
                         CREATE TABLE IF NOT EXISTS %s(
@@ -103,6 +107,15 @@ class DB_Handler(object):
         value = value[:-2]
         sql_query = """INSERT INTO %s (%s) VALUES(%s)"""%(self.db, field, value)
         self.conn.execute(sql_query, data)
+        self.conn.commit()
+        
+    # ------------------------------------------------------------------------
+    def delete_data(self, ID):
+        """
+        Delete all rows with the given ID
+        """
+        sql_query = 'DELETE FROM tasks WHERE id=?'
+        self.cursor.execute(sql_query, (ID,))
         self.conn.commit()
         
     # ------------------------------------------------------------------------
