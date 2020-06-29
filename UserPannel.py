@@ -5,7 +5,7 @@ from User_profil import User_profil
 
 class UserPannel(wx.Panel):
     [TXT_NAME, TXT_NICKAME, TXT_AGE, TXT_SIZE, TXT_WEIGHT, TXT_FCMIN, 
-     TXT_FCMAX, TXT_FTP, BTN_UPDATE, BTN_DELETE] = range(10)
+     TXT_FCMAX, TXT_FTP, BTN_UPDATE, BTN_DELETE, BTN_ADD] = range(11)
     
     def __init__(self, parent, user = None, event = None, Id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
       style=wx.TAB_TRAVERSAL, name=wx.PanelNameStr):
@@ -21,7 +21,6 @@ class UserPannel(wx.Panel):
             self.events = event
         else:
             self.events = []
-
         
         lblName = wx.StaticText(self, wx.ID_ANY, ("User name"), style=wx.ALIGN_LEFT)
         self._txtName = wx.TextCtrl(self, self.TXT_NAME, value=self.user.name)
@@ -61,36 +60,44 @@ class UserPannel(wx.Panel):
         btnDelete = wx.Button(self, self.BTN_DELETE, ('&Delete profil'))
 
         self.Bind(wx.EVT_BUTTON, self._onCmdUpdate, id=self.BTN_UPDATE)
-        self.Bind(wx.EVT_BUTTON, self._onCmdDelete, id=self.BTN_DELETE) 
+        self.Bind(wx.EVT_BUTTON, self._onCmdDelete, id=self.BTN_DELETE)
         
-        self.event_list = wx.ListBox(self, id=wx.ID_ANY, choices = self.events)
+        self.event_list = wx.ListBox(self, id=wx.ID_ANY, choices = self.events, style=wx.LB_MULTIPLE, size=(120,240))
         
         
         # Sizer of the user column
         szr0 = wx.BoxSizer(wx.VERTICAL)
         
         # Sizer for the user parameters
-        szr1 = wx.FlexGridSizer(cols=1, hgap=30, vgap=10)
+        szr1 = wx.GridSizer(cols = 2, rows=8, hgap=5, vgap=5)
         szr1.AddMany([
-                        (lblName, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtName, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (lblNickname, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtNickname, 0, wx.ALIGN_CENTER_HORIZONTAL),                      
-                        (lblAge, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtAge, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (lblSize, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtSize, 0, wx.ALIGN_CENTER_HORIZONTAL),     
-                        (lblWeight, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtWeight, 0, wx.ALIGN_CENTER_HORIZONTAL),     
-                        (lblFCMin, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtFCMin, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (lblFCMax, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtFCMax, 0, wx.ALIGN_CENTER_HORIZONTAL),     
-                        (lblFTP, 0, wx.ALIGN_CENTER_HORIZONTAL),
-                        (self._txtFTP, 0, wx.ALIGN_CENTER_HORIZONTAL), 
-                    ])
+                
+                (lblName, 0, wx.ALIGN_LEFT),
+                (self._txtName, 0, wx.ALIGN_LEFT),
+                
+                (lblNickname, 0, wx.ALIGN_LEFT),
+                (self._txtNickname, 0, wx.ALIGN_LEFT),
+                
+                (lblAge, 0, wx.ALIGN_LEFT),
+                (self._txtAge, 0, wx.ALIGN_LEFT),
+                
+                (lblSize, 0, wx.ALIGN_LEFT),
+                (self._txtSize, 0, wx.ALIGN_LEFT),
+                
+                (lblWeight, 0, wx.ALIGN_LEFT),
+                (self._txtWeight, 0, wx.ALIGN_LEFT),
+                
+                (lblFCMin, 0, wx.ALIGN_LEFT),
+                (self._txtFCMin, 0, wx.ALIGN_LEFT),
+                   
+                (lblFCMax, 0, wx.ALIGN_LEFT),
+                (self._txtFCMax, 0, wx.ALIGN_LEFT),
+                   
+                (lblFTP, 0, wx.ALIGN_LEFT),
+                (self._txtFTP, 0, wx.ALIGN_LEFT),
+                                                   
+                ])
     
-        szr1.AddGrowableCol(0)
 
         # Sizer of the user buttons
         szr2 = wx.BoxSizer(wx.HORIZONTAL)
@@ -117,6 +124,7 @@ class UserPannel(wx.Panel):
     
     def _onCmdDelete(self, event):
         pass
+           
     
     def _onTxtName(self, event):
         self.user.name = event.GetString().strip()

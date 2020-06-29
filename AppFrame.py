@@ -180,7 +180,12 @@ class RibbonFrame(wx.Frame):
         
         self.events = [str(row[0]) for row in rows]
         self.myUser.update_list(self.events)
-    
+        
+    def refresh_user_list(self):
+        self.load_users()
+        self.user_list.Clear()
+        self.user_list.Append(self.users)
+        
     def OnMnuUndo(self, event):
         pass
     
@@ -198,6 +203,8 @@ class RibbonFrame(wx.Frame):
         
         if rep == wx.ID_OK:
             self.insert_user(dlg.user.to_db())
+            self.current_user = dlg.user
+            self.refresh_user_list()
             self.myUser.update(self.current_user)
         else:
             self.current_user = select_user
