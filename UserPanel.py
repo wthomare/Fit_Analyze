@@ -7,13 +7,14 @@ class UserPanel(wx.Panel):
     [TXT_NAME, TXT_NICKAME, TXT_AGE, TXT_SIZE, TXT_WEIGHT, TXT_FCMIN, 
      TXT_FCMAX, TXT_FTP, BTN_UPDATE, BTN_DELETE, BTN_ADD] = range(11)
     
-    def __init__(self, parent, db_user, db_event, event = None, Id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
+    def __init__(self, parent, db_user, db_params, db_event, event = None, Id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
       style=wx.TAB_TRAVERSAL, name=wx.PanelNameStr):
         
         wx.Panel.__init__(self, parent, Id, pos, size, style, name)
          
         self.db_event = db_event
         self.db_user = db_user
+        self.db_params = db_params
         self.load_users()
         self.user = User_profil()
       
@@ -175,14 +176,19 @@ class UserPanel(wx.Panel):
     def onListBox(self, event):
         name, nickname = event.GetEventObject().GetStringSelection().split(" ")
         
-        sql_query = "SELECT id, age , weight, size ,FCMin ,FCMax ,FTP FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(name, nickname)
+        sql_query = "SELECT id FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(name, nickname)
         
+        ID = rows[0][0]
         rows = list(self.db_user.load_data(sql_query)[0])
-
         rows.insert(0, nickname)
         rows.insert(0, name)
-        rows = tuple(rows)
         
+        
+        sql_query = "SELECT age , weight, size ,FCMin ,FCMax ,FTP, timestamp FROM parameters WHERE user_id=%s AND id = (SELECT MAX(id) FROM parameters)"
+        params = list(self.db_params.load_data(sql_query)[0])
+        rows.extend(params)
+        
+        rows = tuple(rows)
         self.user.from_db(rows)
         self.update()
         self.refresh_events_list()

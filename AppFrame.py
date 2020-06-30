@@ -16,6 +16,7 @@ from User_profil import User_profil
 from FitFile_Handler import FitFile_handler
 
 from DlgAddUser import DlgAddUser
+from DlgDelUser import DlgDelUser
 from DlgImport import DlgImport
 
 import xml.etree.ElementTree as ET
@@ -48,6 +49,7 @@ class RibbonFrame(wx.Frame):
         self._bitmap_creation_dc = wx.MemoryDC()
         self._colour_data = wx.ColourData()
         self.db_user = DB_Handler('users', self.parameters, self.logger)
+        self.db_params = DB_Handler('parameters', self.parameters, self.logger)
         self.db_event = DB_Handler("event", self.parameters, self.logger)
         self.events = []
         self.fit_dict = {}
@@ -97,7 +99,7 @@ class RibbonFrame(wx.Frame):
 
         self.current_user = User_profil()       
         
-        self.myUser = Project_frame(panel, db_user=self.db_user, db_event=self.db_event)
+        self.myUser = Project_frame(panel, db_user=self.db_user, db_event=self.db_event, db_params=self.db_params)
         s.Add(self._ribbon, 0, wx.EXPAND)
         s.Add(self.myUser, 1, wx.EXPAND)
         
@@ -128,7 +130,14 @@ class RibbonFrame(wx.Frame):
         race.Bind(RB.EVT_RIBBONTOOLBAR_CLICKED, self.OnMnuDelEvent, id=UI_parameters.DEL_Event)
     
     def insert_user(self, user_profil):
-        self.db_user.insert_data(user_profil)
+        user_id, user_param = user_profil.split_profil()
+        
+        self.db_user.insert_data(user_id)
+        self.db_params.insert_data(user_param)
+        
+    def update_user(self, user_profil):
+        user_id, user_param = user_profil.split_profil()
+        self.db_params.insert_data(user_param)        
         
     def OnMnuUndo(self, event):
         pass
@@ -146,7 +155,7 @@ class RibbonFrame(wx.Frame):
         rep = dlg.getReturnAction()
         
         if rep == wx.ID_OK:
-            self.insert_user(dlg.user.to_db())
+            self.insert_user(dlg.user.split_profil())
             self.current_user = dlg.user
             self.myUser.user_tab.refresh_user_list()
             self.myUser.user_tab.update(self.current_user)
@@ -154,7 +163,9 @@ class RibbonFrame(wx.Frame):
             self.current_user = select_user
     
     def OnMnuDelU(self, event):
-        pass
+        dlg = DlgDelUser(self, wx.ID_ANY)
+        dlg.ShowModal()
+        rep = dlg.getReturnAction()        
     
     def OnMnuEditU(self, event):
         pass

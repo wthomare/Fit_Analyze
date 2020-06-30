@@ -2,6 +2,7 @@
 
 class User_profil(object):
     
+    # ------------------------------------------------------------------------
     def __init__(self):
         self.name = ""
         self.nickname = ""
@@ -13,6 +14,7 @@ class User_profil(object):
         self.FCMax = 0
         self.FTP = 0
     
+    # ------------------------------------------------------------------------
     def check(self):
         assert(isinstance(self.name, str))
         assert(isinstance(self.nickname, str))
@@ -25,6 +27,7 @@ class User_profil(object):
         assert(isinstance(self.user_id, int))
 
         
+    # ------------------------------------------------------------------------
     def copy(self, user):
         self.name = user.name
         self.nickname = user.nickname
@@ -36,24 +39,9 @@ class User_profil(object):
         self.FTP = user.FTP
         self.user_id = user.user_id
         
-        self.check()
+        self.check()        
         
-    def to_db(self):
-        self.check()
-        profil = {
-            
-        "name" : self.name,
-        "nickname" : self.nickname,
-        "age" : self.age,
-        "size" : self.size,
-        "weight" : self.weight,
-        "FCMin" : self.FCMin,
-        "FCMax" : self.FCMax,
-        "FTP" : self.FTP}
-        
-        return profil
-        
-        
+    # ------------------------------------------------------------------------
     def from_db(self, profil):
         self.name = str(profil[0])
         self.nickname = str(profil[1])
@@ -66,5 +54,23 @@ class User_profil(object):
         self.FTP = int(profil[8])
         
         self.check()
-         
-         
+        
+        
+    # ------------------------------------------------------------------------
+    def split_profil(self):
+        user_id = {
+            'name':self.name,
+            'nickname':self.nickname,
+            }
+        
+        user_params = {
+            'user_id': self.user_id,
+            'age': self.age,
+            'weight': self.weight,
+            'size': self.size,
+            'FCMin': self.FCMin,
+            'FCMax': self.FCMax,
+            'FTP':self.FTP              
+            
+            }
+        return user_id, user_params 

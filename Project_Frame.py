@@ -11,10 +11,10 @@ from UserPanel import UserPanel
 
 class Project_frame(AUI.AuiNotebook):
     
-    def __init__(self, parent, db_user, db_event):
+    def __init__(self, parent, db_user, db_event, db_params):
         AUI.AuiNotebook.__init__(self, parent, wx.ID_ANY, style=wx.NB_FLAT)
         
-        self.user_tab = UserPanel(self, db_user=db_user, db_event=db_event)
+        self.user_tab = UserPanel(self, db_user=db_user, db_event=db_event, db_params=db_params)
         self.stat_tab = Tab(self)
         self.graph_tab = Tab(self)
         

@@ -4,6 +4,14 @@ from urllib.request import pathname2url
 import sqlite3
 import os
 
+
+"""
+SELECT * 
+    FROM    TABLE
+    WHERE   ID = (SELECT MAX(ID)  FROM TABLE);
+
+"""
+
 # ----------------------------------------------------------------------------
 class DB_Handler(object):
     
@@ -35,24 +43,32 @@ class DB_Handler(object):
                                 
     # ------------------------------------------------------------------------
     def create_db(self):
-        
         if 'user' in self.db:
             sql_query = """
                         CREATE TABLE IF NOT EXISTS %s(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              name TEXT,
-                             nickname TEXT,
-                             age INTEGER,
-                             weight FLOAT,
-                             size INTEGER,
-                             FCMin INTEGER,
-                             FCMax INTEGER,
-                             FTP INTEGER
+                             nickname TEXT
                         )
-                        """%self.db                    
+                        """%self.db
 
-        elif 'event' in self.db:
+        elif 'parameters' in self.db:
             sql_query = """
+                        CREATE TABLE IF NOT EXISTS %s(
+                            id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                            user_id INTEGER,
+                            age INTEGER,
+                            weight FLOAT,
+                            size INTEGER,
+                            FCMin INTEGER,
+                            FCMax INTEGER,
+                            FTP INTEGER,
+                            timestamp timestamp                               
+                            )
+                        """%self.db
+                        
+        elif 'event' in self.db:
+            sql_query =  """
                         CREATE TABLE IF NOT EXISTS %s(
                              id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
                              user_id INTEGER,
