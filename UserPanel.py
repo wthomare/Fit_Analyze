@@ -3,20 +3,20 @@ import wx
 from User_profil import User_profil
 
 
-class UserPannel(wx.Panel):
+class UserPanel(wx.Panel):
     [TXT_NAME, TXT_NICKAME, TXT_AGE, TXT_SIZE, TXT_WEIGHT, TXT_FCMIN, 
      TXT_FCMAX, TXT_FTP, BTN_UPDATE, BTN_DELETE, BTN_ADD] = range(11)
     
-    def __init__(self, parent, user = None, event = None, Id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
+    def __init__(self, parent, db_user, db_event, event = None, Id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize,
       style=wx.TAB_TRAVERSAL, name=wx.PanelNameStr):
         
         wx.Panel.__init__(self, parent, Id, pos, size, style, name)
-        
-        if user:    
-            self.user = User_profil().copy(user)
-        else:
-            self.user = User_profil()
-        
+         
+        self.db_event = db_event
+        self.db_user = db_user
+        self.load_users()
+        self.user = User_profil()
+      
         if event:
             self.events = event
         else:
@@ -63,8 +63,13 @@ class UserPannel(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self._onCmdDelete, id=self.BTN_DELETE)
         
         self.event_list = wx.ListBox(self, id=wx.ID_ANY, choices = self.events, style=wx.LB_MULTIPLE, size=(120,240))
+        self.user_list = wx.ListBox(self, id=wx.ID_ANY, choices = self.users, size=(120,240))
+
+
+        self.Bind(wx.EVT_LISTBOX, self.onListBox, self.user_list)
         
-        
+        szr = wx.BoxSizer(wx.HORIZONTAL)
+
         # Sizer of the user column
         szr0 = wx.BoxSizer(wx.VERTICAL)
         
@@ -98,7 +103,9 @@ class UserPannel(wx.Panel):
                                                    
                 ])
     
-
+        
+        szr.Add(self.user_list, 0, wx.ALL)
+        
         # Sizer of the user buttons
         szr2 = wx.BoxSizer(wx.HORIZONTAL)
         szr2.Add(btnUpdate, 0, wx.ALL, 5)
@@ -112,6 +119,7 @@ class UserPannel(wx.Panel):
         szr3.Add(self.event_list, 0, wx.ALL)
         
         szrMain = wx.BoxSizer(wx.HORIZONTAL)
+        szrMain.Add(szr, 0, wx.GROW|wx.ALL, 10)
         szrMain.Add(szr0, 0, wx.GROW|wx.ALL, 10)
         szrMain.Add(szr3, 0, wx.GROW|wx.ALL, 10)
         
@@ -150,8 +158,7 @@ class UserPannel(wx.Panel):
     def _onTxtFTP(self, event):
         self.user.FTP = event.GetString().strip()
 
-    def update(self, user):
-        self.user = user
+    def update(self):
         self._txtName.SetValue(str(self.user.name))
         self._txtNickname.SetValue(str(self.user.nickname))
         self._txtAge.SetValue(str(self.user.age))
@@ -164,3 +171,37 @@ class UserPannel(wx.Panel):
     def update_list(self, events):
         self.event_list.Clear()
         self.event_list.Append(events)
+        
+    def onListBox(self, event):
+        name, nickname = event.GetEventObject().GetStringSelection().split(" ")
+        
+        sql_query = "SELECT id, age , weight, size ,FCMin ,FCMax ,FTP FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(name, nickname)
+        
+        rows = list(self.db_user.load_data(sql_query)[0])
+
+        rows.insert(0, nickname)
+        rows.insert(0, name)
+        rows = tuple(rows)
+        
+        self.user.from_db(rows)
+        self.update()
+        self.refresh_events_list()
+        
+    def refresh_events_list(self):
+        sql_query = "SELECT DISTINCT event_name FROM event WHERE user_id={}".format(self.user.user_id)
+        rows = self.db_event.load_data(sql_query)
+        
+        self.events = [str(row[0]) for row in rows]
+        self.update_list(self.events)
+        
+    def refresh_user_list(self):
+        self.load_users()
+        self.user_list.Clear()
+        self.user_list.Append(self.users)
+        
+    def load_users(self):
+        sql_query = "SELECT DISTINCT name, nickname FROM users"
+        rows = self.db_user.load_data(sql_query)
+        
+        self.users = [str(row[0]) + ' ' + str(row[1]) for row in rows]
+        

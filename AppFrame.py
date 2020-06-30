@@ -4,13 +4,12 @@ import os
 import copy
 import wx
 import wx.ribbon as RB
-import wx.grid as gridlib
 
 import UI_parameters
 import images
 
 from Utils import CreateBitmap
-from UserPannel import UserPannel
+from Project_Frame import Project_frame
 from Logger import Logger
 from DB_Handler import DB_Handler
 from User_profil import User_profil
@@ -93,30 +92,14 @@ class RibbonFrame(wx.Frame):
         stats_tools.AddTool(UI_parameters.ID_MNUFILEPRINT, wx.ArtProvider.GetBitmap(wx.ART_PRINT, wx.ART_OTHER, wx.Size(24,23)))
         stats_tools.SetRows(2, 3)
         
-        
-        
-        
 
         s = wx.BoxSizer(wx.VERTICAL)
-        # window splitting
-        self._logwindow = wx.SplitterWindow(panel, wx.ID_ANY)
+
+        self.current_user = User_profil()       
         
-        #♦ User browser
-        self.current_user = User_profil()
-        self.load_users()
-        self.user_list = wx.ListBox(self._logwindow, id=wx.ID_ANY, choices = self.users, pos=wx.DefaultPosition, size=wx.DefaultSize, style=wx.LC_ICON, validator=wx.DefaultValidator, name=wx.ListCtrlNameStr)
-        
-        
-        self.myUser = UserPannel(self._logwindow)
-        
-        # Set splitter
-        self._logwindow.SetMinimumPaneSize(20)
-        self._logwindow.SplitVertically(self.user_list, self.myUser, sashPosition = 160)
-                
-        
-        
+        self.myUser = Project_frame(panel, db_user=self.db_user, db_event=self.db_event)
         s.Add(self._ribbon, 0, wx.EXPAND)
-        s.Add(self._logwindow, 1, wx.EXPAND)
+        s.Add(self.myUser, 1, wx.EXPAND)
         
         panel.SetSizer(s)
         self.panel = panel
@@ -143,48 +126,9 @@ class RibbonFrame(wx.Frame):
         
         race.Bind(RB.EVT_RIBBONTOOLBAR_CLICKED, self.OnMnuAddEvent, id=UI_parameters.ADD_Event)
         race.Bind(RB.EVT_RIBBONTOOLBAR_CLICKED, self.OnMnuDelEvent, id=UI_parameters.DEL_Event)
-        
-        self.Bind(wx.EVT_LISTBOX, self.onListBox, self.user_list)
-        
-        
-    def load_users(self):
-        sql_query = "SELECT DISTINCT name, nickname FROM users"
-        rows = self.db_user.load_data(sql_query)
-        
-        self.users = [str(row[0]) + ' ' + str(row[1]) for row in rows]
-        
     
     def insert_user(self, user_profil):
-        print(user_profil)
         self.db_user.insert_data(user_profil)
-    
-    def onListBox(self, event):
-        name, nickname = event.GetEventObject().GetStringSelection().split(" ")
-        
-        sql_query = "SELECT id, age , weight, size ,FCMin ,FCMax ,FTP FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(name, nickname)
-        
-        rows = list(self.db_user.load_data(sql_query)[0])
-
-        rows.insert(0, nickname)
-        rows.insert(0, name)
-        rows = tuple(rows)
-        
-        self.current_user.from_db(rows)
-        self.myUser.update(self.current_user)
-        
-        self.refresh_events_list()
-        
-    def refresh_events_list(self):
-        sql_query = "SELECT DISTINCT event_name FROM event WHERE user_id={}".format(self.current_user.user_id)
-        rows = self.db_event.load_data(sql_query)
-        
-        self.events = [str(row[0]) for row in rows]
-        self.myUser.update_list(self.events)
-        
-    def refresh_user_list(self):
-        self.load_users()
-        self.user_list.Clear()
-        self.user_list.Append(self.users)
         
     def OnMnuUndo(self, event):
         pass
@@ -204,8 +148,8 @@ class RibbonFrame(wx.Frame):
         if rep == wx.ID_OK:
             self.insert_user(dlg.user.to_db())
             self.current_user = dlg.user
-            self.refresh_user_list()
-            self.myUser.update(self.current_user)
+            self.myUser.user_tab.refresh_user_list()
+            self.myUser.user_tab.update(self.current_user)
         else:
             self.current_user = select_user
     
@@ -215,10 +159,6 @@ class RibbonFrame(wx.Frame):
     def OnMnuEditU(self, event):
         pass
 
-    def OnNewAction(self, event):
-        self._ctrl.setCurrentAction(UI_parameters.ACTIONS[event.GetId()])
-        self._fileHandling.setModified(True)
-        self._ctrl.updateTitle()
         
     def OnMnuAddEvent(self, event):
         dlg =  DlgImport(self)
@@ -243,7 +183,7 @@ class RibbonFrame(wx.Frame):
                     v['user_id'] = self.current_user.user_id
                     self.db_event.insert_data(v)
                     
-        self.refresh_events_list()
+        self.myUser.user_tab.refresh_events_list()
                     
     def OnMnuDelEvent(self, event):
         pass
