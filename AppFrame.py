@@ -173,13 +173,12 @@ class RibbonFrame(wx.Frame):
     def OnMnuEditU(self, event):
         pass
 
-        
     def OnMnuAddEvent(self, event):
         dlg =  DlgImport(self)
         fit_path = os.path.dirname(dlg.GetPath())
         dlg.Destroy()
         if fit_path == None:
-            pass # TODO what if nothing selected ?
+            pass # TODO what if nothing is selected ?
         else:
             files = os.listdir(fit_path)
             fit_files = [os.path.join(fit_path, file) for file in files if file[-4:].lower()=='.fit']
@@ -187,8 +186,7 @@ class RibbonFrame(wx.Frame):
             for file in fit_files:
                 self.fit_dict[file] = FitFile_handler(self.parameters, self.logger, file)
                 self.fit_dict[file].load_file()
-                
-    
+                   
             for file, handler in self.fit_dict.items():
                 handler.parse()  
 
