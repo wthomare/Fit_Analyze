@@ -20,7 +20,6 @@ class DB_Handler(object):
         self.db = db
         self.parameters = parameters
         self.logger = logger
-        
 
         if not self.check_db():
             self.logger.warning("The DB [%s] not found. We will create it" %(self.db))
@@ -29,7 +28,19 @@ class DB_Handler(object):
                 self.logger.info("The DB [%s] is created succesfully" %(self.db))
             else:
                 raise sqlite3.OperationalError("Failed to create the db [%s] at first attempt" %self.db)        
+
+        """
+        PRAGMA synchronous=OFF. This command will cause SQLite to not wait on 
+        data to reach the disk surface, which will make write operations appear 
+        to be much faster. But if you lose power in the middle of a transaction, 
+        your database file might go corrupt.
         
+        """
+        sql_query = "PRAGMA synchronous=OFF"
+        self.conn.execute(sql_query)
+
+        
+
     # ------------------------------------------------------------------------
     def check_db(self):
         try:
@@ -96,6 +107,7 @@ class DB_Handler(object):
         self.cursor.execute(sql_query)
         self.conn.commit()
         
+        
     # ------------------------------------------------------------------------
     def delete_db(self):
         self.logger.warning("Delete the database : [%s]" %self.db)
@@ -130,7 +142,7 @@ class DB_Handler(object):
         """
         Delete all rows with the given ID
         """
-        sql_query = 'DELETE FROM tasks WHERE id=?'
+        sql_query = 'DELETE FROM %s WHERE id=?'%self.db
         self.cursor.execute(sql_query, (ID,))
         self.conn.commit()
         

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import wx
+import datetime
 from User_profil import User_profil
 
 
@@ -103,7 +104,6 @@ class UserPanel(wx.Panel):
                 (self._txtFTP, 0, wx.ALIGN_LEFT),
                                                    
                 ])
-    
         
         szr.Add(self.user_list, 0, wx.ALL)
         
@@ -129,11 +129,12 @@ class UserPanel(wx.Panel):
         szrMain.Fit(self)
         
     def _onCmdUpdate(self, event):
-        self.user.check()
-    
+        user_id, user_param = self.user.split_profil()
+        user_param['timestamp'] = datetime.datetime.now()
+        self.db_params.insert_data(user_param) 
+        
     def _onCmdDelete(self, event):
         pass
-           
     
     def _onTxtName(self, event):
         self.user.name = event.GetString().strip()
@@ -158,16 +159,27 @@ class UserPanel(wx.Panel):
 
     def _onTxtFTP(self, event):
         self.user.FTP = event.GetString().strip()
+        
 
-    def update(self):
-        self._txtName.SetValue(str(self.user.name))
-        self._txtNickname.SetValue(str(self.user.nickname))
-        self._txtAge.SetValue(str(self.user.age))
-        self._txtSize.SetValue(str(self.user.size))
-        self._txtWeight.SetValue(str(self.user.weight))
-        self._txtFCMin.SetValue(str(self.user.FCMin))
-        self._txtFCMax.SetValue(str(self.user.FCMax))
-        self._txtFTP.SetValue(str(self.user.FTP))
+    def update(self, user=None):
+        if not user:
+            self._txtName.SetValue(str(self.user.name))
+            self._txtNickname.SetValue(str(self.user.nickname))
+            self._txtAge.SetValue(str(self.user.age))
+            self._txtSize.SetValue(str(self.user.size))
+            self._txtWeight.SetValue(str(self.user.weight))
+            self._txtFCMin.SetValue(str(self.user.FCMin))
+            self._txtFCMax.SetValue(str(self.user.FCMax))
+            self._txtFTP.SetValue(str(self.user.FTP))
+        else:
+            self._txtName.SetValue(str(user.name))
+            self._txtNickname.SetValue(str(user.nickname))
+            self._txtAge.SetValue(str(user.age))
+            self._txtSize.SetValue(str(user.size))
+            self._txtWeight.SetValue(str(user.weight))
+            self._txtFCMin.SetValue(str(user.FCMin))
+            self._txtFCMax.SetValue(str(user.FCMax))
+            self._txtFTP.SetValue(str(user.FTP))            
         
     def update_list(self, events):
         self.event_list.Clear()
@@ -177,14 +189,14 @@ class UserPanel(wx.Panel):
         name, nickname = event.GetEventObject().GetStringSelection().split(" ")
         
         sql_query = "SELECT id FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(name, nickname)
-        
-        ID = rows[0][0]
+        print(sql_query)
         rows = list(self.db_user.load_data(sql_query)[0])
+
+        ID = int(rows[0])
         rows.insert(0, nickname)
         rows.insert(0, name)
-        
-        
-        sql_query = "SELECT age , weight, size ,FCMin ,FCMax ,FTP, timestamp FROM parameters WHERE user_id=%s AND id = (SELECT MAX(id) FROM parameters)"
+         
+        sql_query = "SELECT age , weight, size ,FCMin ,FCMax ,FTP, timestamp FROM parameters WHERE user_id=%s AND id = (SELECT MAX(id) FROM parameters)"%(ID)
         params = list(self.db_params.load_data(sql_query)[0])
         rows.extend(params)
         
@@ -195,8 +207,9 @@ class UserPanel(wx.Panel):
         
     def refresh_events_list(self):
         sql_query = "SELECT DISTINCT event_name FROM event WHERE user_id={}".format(self.user.user_id)
+        print(sql_query)
         rows = self.db_event.load_data(sql_query)
-        
+        print(rows)
         self.events = [str(row[0]) for row in rows]
         self.update_list(self.events)
         

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-import copy
 import wx
+import datetime
 import wx.ribbon as RB
 
 import UI_parameters
@@ -82,7 +82,6 @@ class RibbonFrame(wx.Frame):
         race.AddTool(UI_parameters.ADD_Event, wx.ArtProvider.GetBitmap(wx.ART_PLUS , wx.ART_OTHER, wx.Size(24,23)), "Add Event")
         race.AddTool(UI_parameters.DEL_Event, wx.ArtProvider.GetBitmap(wx.ART_MINUS , wx.ART_OTHER, wx.Size(24,23)), "Delete Event")
 
-
         # Second page
         stats_page = RB.RibbonPage(self._ribbon, wx.ID_ANY, "Statistic analyzes", CreateBitmap("eye"))
         stats_panel = RB.RibbonPanel(stats_page, wx.ID_ANY, "Save", CreateBitmap("selection_panel"))
@@ -96,8 +95,6 @@ class RibbonFrame(wx.Frame):
         
 
         s = wx.BoxSizer(wx.VERTICAL)
-
-        self.current_user = User_profil()       
         
         self.myUser = Project_frame(panel, db_user=self.db_user, db_event=self.db_event, db_params=self.db_params)
         s.Add(self._ribbon, 0, wx.EXPAND)
@@ -131,13 +128,18 @@ class RibbonFrame(wx.Frame):
     
     def insert_user(self, user_profil):
         user_id, user_param = user_profil.split_profil()
-        
+        print("user_id %s" %user_id)
+        print("user_param %s" %user_param)
         self.db_user.insert_data(user_id)
-        self.db_params.insert_data(user_param)
         
-    def update_user(self, user_profil):
-        user_id, user_param = user_profil.split_profil()
-        self.db_params.insert_data(user_param)        
+        sql_query = "SELECT id FROM users WHERE name LIKE '%{}%' AND nickname LIKE '%{}%'".format(user_id['name'], user_id['nickname'])
+        
+        rows = self.db_user.load_data(sql_query)[0]
+        print("rows %s" %rows)
+        user_param['user_id'] = rows[0]
+        user_param['timestamp'] = datetime.datetime.now()
+        print("user_param complete %s" %user_param)
+        self.db_params.insert_data(user_param)
         
     def OnMnuUndo(self, event):
         pass
@@ -149,23 +151,24 @@ class RibbonFrame(wx.Frame):
         pass
     
     def OnMnuAddU(self, event):
-        select_user = copy.copy(self.current_user)
         dlg = DlgAddUser(self, wx.ID_ANY)
         dlg.ShowModal()
         rep = dlg.getReturnAction()
         
         if rep == wx.ID_OK:
-            self.insert_user(dlg.user.split_profil())
-            self.current_user = dlg.user
+            self.insert_user(dlg.user)
             self.myUser.user_tab.refresh_user_list()
-            self.myUser.user_tab.update(self.current_user)
-        else:
-            self.current_user = select_user
-    
+            self.myUser.user_tab.update(dlg.user)
+            self.myUser.user_tab.refresh_events_list()
+
     def OnMnuDelU(self, event):
-        dlg = DlgDelUser(self, wx.ID_ANY)
+        dlg = DlgDelUser(self, wx.ID_ANY, users=self.myUser.user_tab.users, db_user=self.db_user, db_params=self.db_params, db_event=self.db_event)
         dlg.ShowModal()
-        rep = dlg.getReturnAction()        
+        rep = dlg.getReturnAction()
+        
+        if rep == wx.ID_OK:
+            self.myUser.user_tab.refresh_user_list()
+            self.myUser.user_tab.refresh_events_list()
     
     def OnMnuEditU(self, event):
         pass
@@ -191,10 +194,17 @@ class RibbonFrame(wx.Frame):
 
             for file, handler in self.fit_dict.items():
                 for v in handler.data:
-                    v['user_id'] = self.current_user.user_id
+                    v['user_id'] = self.myUser.user_tab.user.user_id
                     self.db_event.insert_data(v)
                     
         self.myUser.user_tab.refresh_events_list()
                     
     def OnMnuDelEvent(self, event):
         pass
+
+    def Close(self, force=False):
+
+        self.db_params.off()
+        self.db_event.off()
+        self.db_user.off()
+        self.Destroy()

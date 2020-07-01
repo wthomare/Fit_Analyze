@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import wx
+import numpy as np
 import wx.aui as AUI
 
+from matplotlib.backends.backend_wxagg  import FigureCanvasWxAgg as FigCanvas
+from matplotlib.figure import Figure
 from UserPanel import UserPanel
 # from StatPanel import StatPanel
 # from GraphPanel import GraphPanel
@@ -18,6 +21,9 @@ class Project_frame(AUI.AuiNotebook):
         self.stat_tab = Tab(self)
         self.graph_tab = Tab(self)
         
+        self.stat_tab.draw()
+        self.graph_tab.draw()
+        
         
         self.AddPage(self.user_tab, "User")
         self.AddPage(self.stat_tab, "Statistic")
@@ -30,4 +36,18 @@ class Tab(wx.Panel):
     """
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        t = wx.StaticText(self, -1, "This is a test", (20,20))
+        self.figure = Figure()
+        self.axes = self.figure.add_subplot(111)
+        self.canvas = FigCanvas(self, -1, self.figure)
+        self.axes.set_xlabel("Time")
+        self.axes.set_ylabel("Test")
+        
+        szr = wx.BoxSizer(wx.HORIZONTAL)
+        szr.Add(self.canvas, 1, wx.EXPAND)
+        
+        self.SetSizer(szr)
+
+    def draw(self):
+        x = np.arange(0,5,0.1)
+        y = np.sin(np.pi*x)
+        self.axes.plot(x,y)

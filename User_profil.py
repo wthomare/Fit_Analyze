@@ -6,7 +6,7 @@ class User_profil(object):
     def __init__(self):
         self.name = ""
         self.nickname = ""
-        self.user_id = 0
+        self.user_id = 1
         self.age = 0
         self.size = 0
         self.weight = 0.0
@@ -64,13 +64,13 @@ class User_profil(object):
             }
         
         user_params = {
-            'user_id': self.user_id,
-            'age': self.age,
-            'weight': self.weight,
-            'size': self.size,
-            'FCMin': self.FCMin,
-            'FCMax': self.FCMax,
-            'FTP':self.FTP              
+            'user_id': int(self.user_id),
+            'age': int(self.age),
+            'weight': float(self.weight),
+            'size': int(self.size),
+            'FCMin': int(self.FCMin),
+            'FCMax': int(self.FCMax),
+            'FTP': int(self.FTP)           
             
             }
         return user_id, user_params 
